@@ -1,0 +1,7 @@
+# connect to MySQL with authentication
+ActiveRecord::Base.establish_connection(
+  adapter:  'postgresql',
+  host:     'localhost',
+  username: 'chitrarani',
+  database: 'hood_development'
+)

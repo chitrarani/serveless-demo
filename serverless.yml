@@ -1,0 +1,49 @@
+service: user-management # NOTE: update this with your service name
+
+custom:
+  bucket: vueopsServerlessLocal
+  myStage: ${opt:stage, self:provider.stage}
+  myProfile:
+    prod: prodAccount
+    dev: devAccount
+    stage: stageAccount
+
+  # hooks:
+  #   package:initialize:
+  #     - bundle install --deployment
+  # hooks:
+  #   package:initialize:
+  #     - docker run --rm -v $PWD:/var/task -w /var/task lambda-ruby2.5-postgresql10 sh ./pg_compile.sh
+
+provider:
+  name: aws
+  runtime: ruby2.5
+  stage: dev
+  region: us-east-1
+  profile: ${self:custom.myProfile.${self:custom.myStage}}
+
+
+plugins:
+  - serverless-offline
+  # - serverless-hooks-plugin
+
+package:
+  # excludeDevDependencies: false
+  exclude:
+    - node_modules/**
+
+functions:
+  list:
+    handler: app/functions/user.UserManagement::User.list
+    events:
+      - http:
+          path: users/list
+          method: get
+    layers:
+      - arn:aws:lambda:us-east-1:622443633250:layer:gemPacks:2
+
+# layers:
+#   LambdaRubyPostgresql:
+#     path: lib
+#     description: "adding native dependencies of pg gem"
+

@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/chitrarani/serverless-demo
     docker:
       # specify the version you desire here
-      - image: lambci/lambda:build-ruby2.5
+      - image: circleci/ruby:2.5.0-node-browsers
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -39,7 +39,7 @@ jobs:
       # Run rspec in parallel
       - type: shell
         command: |
-          bundle exec rake spec
+          bundle exec rspec
 
       - run:
           name: Deploy application

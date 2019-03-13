@@ -31,6 +31,8 @@ package:
   # excludeDevDependencies: false
   exclude:
     - node_modules/**
+    - Gemfile
+    - Gemfile.lock
 
 functions:
   list:

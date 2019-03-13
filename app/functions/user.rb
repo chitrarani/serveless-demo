@@ -8,7 +8,14 @@ ActiveRecord::Base.establish_connection('postgres://jehfqldlowjgqk:74dee56af7a61
 module UserManagement
   class User < ActiveRecord::Base
     def self.list(event:, context:)
-      { statusCode: 200, body: JSON.generate("#{self} - #{User.last.email}   Go Serverless") }
+      data = {users: get_users}
+      { statusCode: 200, body: JSON.generate(data) }
+    end
+
+    private
+
+    def self.get_users
+      User.last(10).collect { |user| {id: user.id, email: user.email} }
     end
   end
 end

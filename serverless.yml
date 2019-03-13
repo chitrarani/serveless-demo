@@ -33,6 +33,7 @@ package:
     - node_modules/**
     - Gemfile
     - Gemfile.lock
+    - package-lock.json
 
 functions:
   list:

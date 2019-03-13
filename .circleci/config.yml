@@ -5,6 +5,7 @@
 version: 2
 jobs:
   build:
+    working_directory: ~/chitrarani/serverless-demo
     docker:
       # specify the version you desire here
       - image: lambci/lambda:build-ruby2.5
@@ -13,8 +14,6 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/postgres:9.4
-
-    working_directory: ~/chitrarani/serverless-demo
 
     steps:
       - checkout
@@ -27,18 +26,30 @@ jobs:
             - v1-dependencies-
 
       - run:
+          name: Install Serverless CLI and dependencies
+          command: |
+            sudo npm i -g serverless
+            npm install
+
+      - run:
           name: install dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
+
+      # Run rspec in parallel
+      - type: shell
+        command: |
+          bundle exec rake spec
+
+      - run:
+          name: Deploy application
+          command: sls deploy
 
       - save_cache:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # Run rspec in parallel
-      - type: shell
-        command: |
-          bundle exec rake spec
+
 
 

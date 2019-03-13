@@ -28,8 +28,9 @@ jobs:
       - run:
           name: Install Serverless CLI and dependencies
           command: |
-            npm i -g serverless
             npm install
+            npm i -g serverless
+
 
       - run:
           name: install dependencies

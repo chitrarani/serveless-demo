@@ -47,7 +47,7 @@ jobs:
 
       - run:
           name: Deploy application
-          command: sls deploy
+          command: sls deploy --stage dev
 
       - save_cache:
           paths:

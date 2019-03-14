@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/chitrarani/serverless-demo
     docker:
       # specify the version you desire here
-      - image: chitrar/ruby2.5-node10
+      - image: chitrar/ruby2.5-node10:firsttry
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images

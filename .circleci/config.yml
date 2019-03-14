@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/chitrarani/serverless-demo
     docker:
       # specify the version you desire here
-      - image: chitrar/ruby2.5-node10:firsttry
+      - image: chitrar/ruby2.5-node10-postgresql10
 
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
@@ -34,7 +34,6 @@ jobs:
           command: |
             npm install
             npm i -g serverless
-
 
       - run:
           name: install dependencies
